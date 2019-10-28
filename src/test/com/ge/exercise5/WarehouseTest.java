@@ -2,6 +2,7 @@ package com.ge.exercise5;
 
 import org.junit.Before;
 import org.junit.Test;
+import com.ge.exercise5.Warehouse;
 
 import static com.ge.exercise5.ItemType.*;
 import static org.junit.Assert.assertEquals;
@@ -273,5 +274,17 @@ public class WarehouseTest {
         warehouse.updateItems();
         assertEquals(0, item.getValue());
         assertEquals(-2, item.getSellBy());
+    }
+
+    /**
+     *  PERISHABLE Items
+     */
+    @Test
+    public void preiousItemsDegradeTwiceAsNormalItem() {
+        Item item = new Item(PERISHABLE, 10, 10);
+        warehouse.addItem(item);
+        warehouse.updateItems();
+        assertEquals(8, item.getValue());
+        assertEquals(9, item.getSellBy());
     }
 }

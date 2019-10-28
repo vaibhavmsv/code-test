@@ -28,6 +28,9 @@ public class Warehouse {
                     if (item.getType() == NORMAL) {
                         item.setValue(item.getValue() - 1);
                     }
+                    if (item.getType() == PERISHABLE) {
+                        item.setValue(item.getValue() - 2);
+                    }
                 }
             } else if (item.getType() != NORMAL && item.getType() != AGEABLE && item.getType() != RARE) {
                 if (item.getValue() > 0) {
