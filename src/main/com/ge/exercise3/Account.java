@@ -7,8 +7,8 @@ public class Account {
 
     private static final Logger logger = LogManager.getLogger(Account.class);
 
-    private static float monthlyInterestRate = 1.01f;
-    private static float monthlyFee = 0.0f;
+    private float monthlyInterestRate = 1.01f;
+    private float monthlyFee = 0.0f;
 
     private String accountNumber;
     private String accountType;
@@ -24,52 +24,60 @@ public class Account {
     }
 
     public Account(String accountNumber, String accountType) {
-        new Account(accountNumber, accountType, 0.0f);
+        this(accountNumber, accountType, 0.0f);
     }
 
     public Account(String accountNumber) {
-        new Account(accountNumber, "Savings", 0.0f);
+        this(accountNumber, "Savings", 0.0f);
     }
 
     public float valueNextMonth() {
-        return (balance * monthlyInterestRate) - monthlyFee;
+        return (this.balance * this.monthlyInterestRate) - this.monthlyFee;
     }
 
     @Override
     public String toString() {
-        if (accountType == "Checking") {
-            if (monthlyFee == 0.0f) {
-                return "No fee checking account #" + accountNumber;
+        if (this.accountType == "Checking") {
+            if (this.monthlyFee == 0.0f) {
+                return "No fee checking account #" + this.accountNumber;
             } else {
-                return "Checking account #" + accountNumber;
+                return "Checking account #" + this.accountNumber;
             }
         } else {
-            if (monthlyInterestRate > 1.01) {
-                if (monthlyFee == 0.0f) {
-                    return "High interest no fee savings account #" + accountNumber;
+            if (this.monthlyInterestRate > 1.01) {
+                if (this.monthlyFee == 0.0f) {
+                    return "High interest no fee savings account #" + this.accountNumber;
                 } else {
-                    return "High interest savings account #" + accountNumber;
+                    return "High interest savings account #" + this.accountNumber;
                 }
             } else {
-                if (monthlyFee == 0.0f) {
-                    return "No fee savings account #" + accountNumber;
+                if (this.monthlyFee == 0.0f) {
+                    return "No fee savings account #" + this.accountNumber;
                 } else {
-                    return "Savings account #" + accountNumber;
+                    return "Savings account #" + this.accountNumber;
                 }
             }
         }
     }
 
     public void deposit(float amount) {
-        balance += amount;
+        this.balance += amount;
     }
 
     public void withdraw(float amount) {
-        balance -= amount;
+        if(accountType.equals("Checking")) {
+            if(amount <= 100.0f) {
+               this.balance = this.balance - amount;
+            }
+        } else {
+            if (this.balance - amount > 0) {
+                this.balance = this.balance - amount;
+            }
+        }
     }
 
     public float getMonthlyInterestRate() {
-        return monthlyInterestRate;
+        return this.monthlyInterestRate;
     }
 
     public void setMonthlyInterestRate(float monthlyInterestRate) {
@@ -77,7 +85,7 @@ public class Account {
     }
 
     public float getMonthlyFee() {
-        return monthlyFee;
+        return this.monthlyFee;
     }
 
     public void setMonthlyFee(float monthlyFee) {
@@ -85,7 +93,7 @@ public class Account {
     }
 
     public String getAccountNumber() {
-        return accountNumber;
+        return this.accountNumber;
     }
 
     public void setAccountNumber(String accountNumber) {
@@ -93,7 +101,7 @@ public class Account {
     }
 
     public String getAccountType() {
-        return accountType;
+        return this.accountType;
     }
 
     public void setAccountType(String accountType) {
@@ -101,7 +109,7 @@ public class Account {
     }
 
     public float getBalance() {
-        return balance;
+        return this.balance;
     }
 
     void setBalance(float balance) {

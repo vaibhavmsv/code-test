@@ -9,6 +9,8 @@ import java.util.Map;
 public class Bank {
 
     private static final Logger logger = LogManager.getLogger(Bank.class);
+    private final String PROFIT = "PROFIT";
+    private final String LOSS = "LOSS";
     private Map<String, Account> accountMap;
 
     public Bank() {
@@ -33,5 +35,28 @@ public class Bank {
 
     public int numAccounts() {
         return accountMap.size();
+    }
+
+    public float totalBalance() {
+        float sum = 0.0f;
+        for(Map.Entry<String, Account> accountEntry : accountMap.entrySet()) {
+            Account account = accountEntry.getValue();
+            sum = sum + account.getBalance();
+        }
+        return sum;
+    }
+
+    public String calculateProfitOrLoss() {
+        float sumOfAllFees = 0.0f;
+        float totalInterestPaid = 0.0f;
+        for(Map.Entry<String, Account> accountEntry : accountMap.entrySet()) {
+            Account account = accountEntry.getValue();
+            sumOfAllFees = sumOfAllFees + account.getBalance();
+            totalInterestPaid = totalInterestPaid + (account.getBalance() * account.getMonthlyInterestRate());
+        }
+        if (sumOfAllFees > totalInterestPaid)
+            return PROFIT;
+        else
+            return LOSS;
     }
 }
