@@ -24,7 +24,8 @@ public class ParserTest {
     public void parseApplicationDataSimpleTest() {
         String simpleTestData = "Application(id: 0,name: MyApp,users:[User(id: 2,name: Beth Jones)],groups:[Group(id: 1,name: SimpleGroup,users:[User(id: 2,name: Beth Jones)])])";
         Application app = parser.parseApplicationData(simpleTestData);
-
+        System.out.println(app.getGroup("1").getName());
+        System.out.println(app.getUser("2").getName());
         assertEquals("SimpleGroup", app.getGroup("1").getName());
         assertEquals(1, app.getGroup("1").size);
 

@@ -5,6 +5,8 @@ import java.util.Collection;
 public abstract class Application {
     private String id;
     private String name;
+    protected Collection<User> users;
+    protected Collection<Group> groups;
 
     public Application(String id, String name) {
         this.id = id;
@@ -26,6 +28,10 @@ public abstract class Application {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void setUsers(Collection<User> users) { this.users = users; }
+
+    public void setGroups(Collection<Group> groups) { this.groups = groups; }
 
     public abstract Collection<User> getUsers();
 

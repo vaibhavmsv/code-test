@@ -27,4 +27,6 @@ public abstract class Group {
 
     public int size;
 
+    public void setSize(int size) { this.size = size; }
+
 }
